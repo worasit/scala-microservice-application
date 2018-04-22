@@ -19,4 +19,5 @@ object Dependencies {
   val parserCombinator = "org.scala-lang.modules" % "scala-parser-combinators_2.12" % parserCombinatorV
   val playJson = "com.typesafe.play" %% "play-json" % "2.6.3"
   val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+  val playTest = "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.0" % "test"
 }

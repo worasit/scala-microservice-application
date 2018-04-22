@@ -1,9 +1,10 @@
 import Dependencies._
-import play.sbt.PlayImport.{guice, specs2, ws}
+import play.sbt.PlayImport.{PlayKeys, guice, specs2, ws}
 import play.sbt.PlayScala
-import sbt.Keys._
+import sbt.Keys.{fullClasspath, _}
 import sbt.{Build, Project, Resolver, file, project}
 import sbt._
+import sbtassembly.AssemblyKeys._
 
 /**
   * Contains all projects and settings
@@ -47,14 +48,17 @@ object Build extends Build {
     resolvers ++= Seq(
       Resolver.typesafeRepo("releases"),
       "JBoss" at "https://repository.jboss.org/"
-    )
+    ),
+    test in assembly := {}
   )
+
 
   lazy val commons = BaseProject("commons")
     .settings(
       libraryDependencies ++= Seq(
         specs2 % Test,
-        "com.typesafe.play" %% "play-json" % "2.6.3"
+        "com.typesafe.play" %% "play-json" % "2.6.3",
+        playTest
       )
     )
 
@@ -63,6 +67,9 @@ object Build extends Build {
   }
 
   private def PlayProject(id: String): Project = {
-    BaseProject(id) enablePlugins PlayScala
+    BaseProject(id) enablePlugins PlayScala settings(
+      mainClass in assembly := Some("play.core.server.ProdServerStart"),
+      fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value)
+    )
   }
 }
