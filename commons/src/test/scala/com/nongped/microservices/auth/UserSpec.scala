@@ -12,5 +12,5 @@ class UserSpec extends Specification {
     "email" in {
       ok
     }
-
+  }
 }
