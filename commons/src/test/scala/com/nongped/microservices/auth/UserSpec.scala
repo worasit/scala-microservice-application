@@ -12,5 +12,9 @@ class UserSpec extends Specification {
     "email" in {
       ok
     }
+
+    "trigger travis-ci" in {
+      ok
+    }
   }
 }
