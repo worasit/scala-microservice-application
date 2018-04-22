@@ -1,7 +1,17 @@
 language: scala
 jdk: oraclejdk8
+sudo: false
 scala:
   - 2.12.2
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt
+
 script:
-  - sbt -jvm-opts travis/jvmopts.compile
-  - sbt -jvm-opts travis/jvmopts.test
+  - sbt ++$TRAVIS_SCALA_VERSION test
+
+before_cache:
+  - find $HOME/.sbt -name "*.lock" | xargs rm
+  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
