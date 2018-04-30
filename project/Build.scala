@@ -1,5 +1,5 @@
 import Dependencies._
-import play.sbt.PlayImport.{PlayKeys, guice, specs2, ws}
+import play.sbt.PlayImport._
 import play.sbt.PlayScala
 import sbt.Keys.{fullClasspath, _}
 import sbt.{Build, Project, Resolver, file, project}
@@ -58,7 +58,8 @@ object Build extends Build {
       libraryDependencies ++= Seq(
         specs2 % Test,
         "com.typesafe.play" %% "play-json" % "2.6.3",
-        playTest
+        playTest,
+        evolutions
       )
     )
 
